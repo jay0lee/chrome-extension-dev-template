@@ -47,9 +47,9 @@ jobs:
         
         update_xml=$(cat update.xml.template)
         update_xml="${update_xml/EXTENSION_VERSION/"$extension_version"}"
-        update_xml="${update_xml/GITHUB_OWNER/${{ github.repository_owner }}"
-        update_xml="${update_xml/EXTENSION_ID/${extension_id}"
-        update_xml="${update_xml/GITHUB_REPO/${GITHUB_REPOSITORY#*/}"
+        update_xml="${update_xml/GITHUB_OWNER/${{ github.repository_owner }}}"
+        update_xml="${update_xml/EXTENSION_ID/${extension_id}}"
+        update_xml="${update_xml/GITHUB_REPO/${GITHUB_REPOSITORY#*/}}"
         mkdir -vp hosted
         echo -e "$update_xml" > hosted/update.xml
         cat hosted/update.xml
