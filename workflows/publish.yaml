@@ -33,25 +33,34 @@ jobs:
         echo "extension_version=${extension_version}" >> $GITHUB_ENV
         
     - name: Update version in update.xml and manifest.json
+      env:
+          EXTENSION_KEY: ${{ secrets.EXTENSION_KEY }}
       run: |
         tmpfile=$(mktemp)
         jq ".version = \"$extension_version\"" extension/manifest.json > "$tmpfile" && mv "$tmpfile" extension/manifest.json
         cat extension/manifest.json
+
+        key_file="${HOME}/ext.pem"
+        echo -e "$EXTENSION_KEY" > "$key_file"
+        extension_id=$(bash ./get-extension-id.sh "$key_file")
+        echo "Our extension ID will be: ${extension_id}"
+        
         update_xml=$(cat update.xml.template)
         update_xml="${update_xml/EXTENSION_VERSION/"$extension_version"}"
+        update_xml="${update_xml/GITHUB_OWNER/${{ github.repository_owner }}"
+        update_xml="${update_xml/EXTENSION_ID/${extension_id}"
+        update_xml="${update_xml/GITHUB_REPO/${GITHUB_REPOSITORY#*/}"
         mkdir -vp hosted
         echo -e "$update_xml" > hosted/update.xml
         cat hosted/update.xml
 
     - name: Build extension with Chrome
-      env:
-          EXTENSION_KEY: ${{ secrets.EXTENSION_KEY }}
       run: |
         key_file="${HOME}/ext.pem"
-        echo -e "$EXTENSION_KEY" > "$key_file"
         echo "Our extension ID will be:"
         bash ./get-extension-id.sh "$key_file"
         google-chrome-stable --pack-extension=./extension --pack-extension-key="$key_file"
+        rm -v "$key_file"
         mv -v extension.crx hosted/extension.crx
 
     - name: Commit files
