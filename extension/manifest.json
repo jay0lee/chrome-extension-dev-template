@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Hello Dev Template",
-  "version": "2025.1218.1825.57",
+  "version": "2025.1218.1855.35",
   "description": "A bare minimal extension template.",
   "action": {
     "default_popup": "popup.html"
