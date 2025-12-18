@@ -1,5 +1,7 @@
 # Chrome Extension Development Template
-This is a template repository that automates Chrome extension development and hosting in an enterprise environment. When you make changes to the code in the extension/ directory, a GitHub Action will take care of:
+This is a template repository that automates Chrome extension development and hosting in an enterprise environment. This is based on [Google's instructions for hosting an extension outside the Chrome Web Store](https://developer.chrome.com/docs/extensions/how-to/distribute/host-on-linux).
+
+When you make changes to the code in the extension/ directory, a GitHub Action will take care of:
 1. Compiling the extension.
 2. Hosting the compiled extension on GitHub pages.
 3. Providing the proper update.xml file so the extension auto-updates for browsers including force-installed extensions.
