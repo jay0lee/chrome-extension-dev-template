@@ -14,3 +14,5 @@ IMPORTANT! Don't lose your extension private key! If you do you'll no longer be 
 
 3. Save the private key [to a GitHub secret for the repository github actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets#creating-secrets-for-a-repository). Name the secret `EXTENSION_KEY`.
 4. Enable GitHub Actions for your repository (look under the Actions tab).
+5. Make a change to the extension, something simple like changing [extension/popup.html](main/README.md#:~:text=manifest.json-,popup,-.html) to say "Hello Jay!".
+6. The GitHub Action should run, build the extension and publish it to the GitHub page.
